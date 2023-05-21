@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <style type="text/css">
-header a {
+.nav_wrap a {
 	text-decoration: none;
 	color: black;
 	margin-left: 10px;
@@ -42,8 +42,8 @@ header a {
 		}
 	}
 </script>
-<header>
-	<div align="center">
+
+	<div class="nav_wrap" align="center">
 
 		<div id="top_logo">
 			<a href="./"> <img alt="렌터카 로고" src="">
@@ -75,4 +75,3 @@ header a {
 			</c:choose>
 		</div>
 	</div>
-</header>
