@@ -1,34 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<style>
+<script src="src/js/flatpickr.js"></script>
+<link href="src/css/flatpickr.min.css" rel="styleSheet">
 
-.calender ul {
+<style> 
+.calender ul { 
 	list-style-type: none;
 }
 
 .calender {
-	width: 300px;
+	width: 300px; 
 	box-sizing: border-box;
-	
+	text-align: center;
 }
 
 .cal_rent {
-	text-align: center; margin : 0;
+	text-align: center;
+	padding-top: 10px; height : 50px; margin : 0;
 	background-color: #0B294B;
-	margin: 0;
+	height: 70px;
 }
 
 .cal_rent div {
 	display: inline-block;
-	line-height: 5px;
-	color: white;
+	color: white! important;
 }
 
 .cal_rent_day {
 	padding-left: 10px;
 	padding-right: 40px;
+}
+.cal_rent_day div{
+	display: block;
 }
 
 .cal_return_day {
@@ -36,63 +42,41 @@
 	padding-right: 10px;
 }
 
-.cal_month {
-	background: #FF7F02;
-	text-align: center;
+.cal_return_day div{
+	display: block;
 }
 
-.cal_month ul {
+/* 달력 관련 css */
+
+
+/* 달력 모듈이 input tag 를 필요로함
+해당 태그는 hidden으로 해도 숨겨지지 않으므로 none 으로 처리*/
+.cal-input{
+display: none; 
+}
+
+/* 달력 모듈 관련 css 수정*/
+
+.flatpickr-calendar{
+	width: 300px;
 	margin: 0;
-	padding: 0;
+	position: 0px;
 }
 
-.cal_month ul li {
-	color: white;
-	font-size: 20px;
-	text-transform: uppercase;
-	letter-spacing: 3px;
+.flatpickr-month{
+	background: #FF7F02 !important;
+	text-align: center !important;
 }
 
-.cal_month .prev {
-	float: left;
-	padding-top: 10px;
-	padding-left: 10px;
+.startRange{
+	border-color: #FF7F02  !important;
+	background-color: #FF7F02 !important;
+}
+.endRange{
+	border-color: #FF7F02  !important;
+	background-color: #FF7F02 !important;
 }
 
-.cal_month .next {
-	float: right;
-	padding-top: 10px;
-	padding-right: 10px;
-}
-
-.cal_weeks {
-	margin: 0;
-	padding: 10px 0;
-	background-color: #ddd;
-}
-
-.cal_weeks li {
-	display: inline-block;
-	width: 12%;
-	color: #666;
-	text-align: center;
-}
-
-.cal_days {
-	padding: 10px 0;
-	background: #eee;
-	margin: 0;
-}
-
-.cal_days li {
-	list-style-type: none;
-	display: inline-block;
-	width: 12%;
-	text-align: center;
-	margin-bottom: 5px;
-	font-size: 12px;
-	color: #777;
-}
 
 .cal_active {
 	padding: 5px;
@@ -108,110 +92,71 @@
 
 .cal_hour {
 	text-align: center;
+/* 	padding-top:10px; */
+/* 	padding-bottom:10px; */
 	border-top: 1px solid gray;
 	background: #EDEDED;
 }
 
 .cal_hour>div {
 	margin: 0px;
-	padding: 5px; 
+	padding: 5px;
 	display: inline-block;
 }
 
-/* Add media queries for smaller screens */
-/* @media screen and (max-width:720px) { */
-/*   .weekdays li, .days li {width: 13.1%;} */
-/* } */
 
-/* @media screen and (max-width: 420px) { */
-/*   .weekdays li, .days li {width: 12.5%;} */
-/*   .days li .active {padding: 2px;} */
-/* } */
-
-/* @media screen and (max-width: 290px) { */
-/*   .weekdays li, .days li {width: 12.2%;} */
-/* } */
 </style>
 
+
+<input type="hidden" name="" value="">
 	<div class="calender">
 		<div class="cal_rent">
+		
+		
+		<!-- 반납일 및 대여일 구역 -->
+		
 			<div class="cal_rent_day">
-				<p>대여일</p>
-				<p>
+				<div>대여일</div>
+				<div>
 					<span class="cal_rent_day_month">5월</span> <span
 						class="cal_rent_day_date">13일</span>
-				</p>
+				</div>
 			</div>
 			<!-- 			화살표이미지 -->
 			<!-- 			<img alt="▶" src=""> -->
 			<div class="cal_return_day">
-				<p>반납일</p>
-				<p>
+				<div>반납일</div>
+				<div>
 					<span class="cal_return_day_month">5월</span> <span
 						class="cal_return_day_date">15일</span>
-				</p>
+				</div>
 			</div>
 		</div>
 
 
-		<div class="cal_month">
-			<ul>
-				<li class="prev">&#10094;</li>
-				<li class="next">&#10095;</li>
-				<li>August<br> <span style="font-size: 18px">2021</span>
-				</li>
-			</ul>
-		</div>
 
-		<ul class="cal_weeks">
-			<li>Mo</li>
-			<li>Tu</li>
-			<li>We</li>
-			<li>Th</li>
-			<li>Fr</li>
-			<li>Sa</li>
-			<li>Su</li>
-		</ul>
+		<!-- 달력 모듈 요소 ! -->
+		<!-- 해당 달력 모듈에선 값을 하나 선택할 경우 그 하나의 날짜만 리턴
+			(ex 2021-06-20) 
+			날짜 두개를 정상적으로 선택할 경우 to 와 공백으로 구분지어 보냄
+			(ex 2021-06-20 to 2021-06-27) -->		
+		<input type="hidden" class="flatpicker cal-input" 
+		 data-id="inline" readonly="readonly" onchange="updateCalRent(this)">
 
-		<ul class="cal_days">
-			<li>1</li>
-			<li>2</li>
-			<li>3</li>
-			<li>4</li>
-			<li>5</li>
-			<li>6</li>
-			<li>7</li>
-			<li>8</li>
-			<li>9</li>
-			<li>10</li>
-			<li>11</li>
-			<li>12</li>
-			<li><span class="cal_active">13</span></li>
-			<li><span class="cal_active_lite">14</span></li>
-			<li><span class="cal_active">15</span></li>
-			<li>16</li>
-			<li>17</li>
-			<li>18</li>
-			<li>19</li>
-			<li>20</li>
-			<li>21</li>
-			<li>22</li>
-			<li>23</li>
-			<li>24</li>
-			<li>25</li>
-			<li>26</li>
-			<li>27</li>
-			<li>28</li>
-			<li>29</li>
-			<li>30</li>
-			<li>31</li>
-		</ul>
+
+
+		<!-- 시간 정하는 요소 ! -->
+		
+		
 		<div class="cal_hour">
 			<div class="cal_hour_rent">
 				<div>대여일시</div>
 				<select name="rentHour">
-					<c:forEach var="i" begin="0" end="24">
+					<c:forEach var="i" begin="0" end="23">
 						<c:choose>
+							<c:when test="${ i == 15 }">
+								<option value="0${ i }" selected="selected">${ i }</option>
+							</c:when>
 							<c:when test="${ i < 10 }">
 								<option value="0${ i }">0${ i }</option>
 							</c:when>
@@ -238,8 +183,11 @@
 				<div>반납일시</div>
 
 				<select name="returnHour">
-					<c:forEach var="i" begin="0" end="24">
+					<c:forEach var="i" begin="0" end="23">
 						<c:choose>
+							<c:when test="${ i == 15 }">
+								<option value="0${ i }" selected="selected">${ i }</option>
+							</c:when>
 							<c:when test="${ i < 10 }">
 								<option value="${ i }">0${ i }</option>
 							</c:when>
@@ -264,4 +212,64 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 달력 기능 셋팅을 위한 스크립트 
+		달력 태그가 오기전에 스크립트를 넣으면 적용안됨
+		반드시 달력 태그 아래에 스크립트 넣기 !!!
+	-->
+	<script> 
+	flatpickr(".cal-input",{
+		inline:true,
+		mode:"range",
+		minDate:"today",
+		dateFormat: "Y-m-d",
+		//기본 설정 날짜 지정
+		defaultDate:[new Date() , new Date().fp_incr(2)]
+			});
+	
 
+
+	
+	//달력 항목 선택 시 대여일 및 반납일
+	
+	function updateCalRent(val) {
+		// 해당 달력 모듈에선 to 로 선택한 두 날짜를 구분지어 보내옴
+		// 따라서 to 로 split 하기
+		let strArr = val.value.split('to');
+		
+		if(strArr.length == 2){
+			// to 로 분리 해도 불필요한 공백이 포함되어있으므로
+			// 배열에서 받아오는 동시에 trim 으로 공백 제거
+			
+			//동시에 '-' 로 분리하기위해 다시 split 하기
+			let rentD = strArr[0].trim().split('-');
+			let returnD = strArr[1].trim().split('-');
+			
+			// 따라서 배열 첫번째는 년, 두번째는 월, 세번째는 일 로 구성됨
+			
+			// querySelector 로 대여일 반납일 요소 불러와서 텍스트 넣기
+			let rentDayMonth = document.querySelector(".cal_rent_day_month");
+			let rentDayDate = document.querySelector(".cal_rent_day_date");
+			let returnDayMonth = document.querySelector(".cal_return_day_month");
+			let returnDayDate = document.querySelector(".cal_return_day_date");
+			
+			rentDayMonth.textContent = parseInt(rentD[1]) + "월";
+			rentDayDate.textContent = parseInt(rentD[2]) + "일";
+			returnDayMonth.textContent = parseInt(returnD[1]) + "월";
+			returnDayDate.textContent = parseInt(returnD[2]) + "일";
+			
+		}
+
+	}
+	//첫 시작시 대여일 반납일 초기화 메서드 수행
+	
+	function initCal() {
+		
+		let calInput = document.querySelector(".cal-input");
+		updateCalRent(calInput);
+	}
+	initCal();
+	
+	</script>
+	
+	
