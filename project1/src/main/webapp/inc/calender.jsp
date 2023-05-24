@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script src="src/js/flatpickr.js"></script>
 <link href="src/css/flatpickr.min.css" rel="styleSheet">
@@ -77,18 +76,7 @@ display: none;
 	background-color: #FF7F02 !important;
 }
 
-
-.cal_active {
-	padding: 5px;
-	background: #1abc9c;
-	color: white !important
-}
-
-.cal_active_lite {
-	padding: 5px;
-	background: #9ed5e8;
-	color: white !important
-}
+/* 달력 시간 설정 css*/
 
 .cal_hour {
 	text-align: center;
@@ -148,6 +136,7 @@ display: none;
 		<!-- 시간 정하는 요소 ! -->
 		
 		
+						<!-- 기본값으로 15시 설정 -->
 		<div class="cal_hour">
 			<div class="cal_hour_rent">
 				<div>대여일시</div>
@@ -165,7 +154,10 @@ display: none;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-				</select> <label for="rentHour">시</label> <select name="rentMinute">
+				</select> <label for="rentHour">시</label> 
+				
+				<!-- 분 설정 -->
+				<select name="rentMinute">				
 					<c:forEach var="i" begin="0" end="59">
 						<c:choose>
 							<c:when test="${ i < 10 }">
@@ -179,12 +171,16 @@ display: none;
 				</select> <label for="rentMinute">분</label>
 			</div>
 
+			<!-- 반납일시 -->
+			
+						<!-- 기본값으로 15시 설정 -->
 			<div class="cal_hour_return">
 				<div>반납일시</div>
 
 				<select name="returnHour">
 					<c:forEach var="i" begin="0" end="23">
 						<c:choose>
+						
 							<c:when test="${ i == 15 }">
 								<option value="0${ i }" selected="selected">${ i }</option>
 							</c:when>
@@ -196,7 +192,10 @@ display: none;
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-				</select> <label for="returnHour">시</label> <select name="returnMinute">
+				</select> <label for="returnHour">시</label> 
+				
+				<!--  분 설정 -->
+				<select name="returnMinute">
 					<c:forEach var="i" begin="0" end="59">
 						<c:choose>
 							<c:when test="${ i < 10 }">
