@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script src="src/js/flatpickr.js"></script>
-<link href="src/css/flatpickr.min.css" rel="styleSheet">
+<script src="inc/js/flatpickr.js"></script>
+<link href="inc/css/flatpickr.min.css" rel="styleSheet">
 
 <style> 
 .calender ul { 
@@ -45,6 +45,13 @@
 	display: block;
 }
 
+.cal_rent_day_title, .cal_return_day_title{
+	border: 2px solid #FF7F02;
+	border-radius: 10px;
+	margin-bottom: 3px;
+	width: 70px;
+}
+
 /* 달력 관련 css */
 
 
@@ -63,7 +70,6 @@ display: none;
 }
 
 .flatpickr-month{
-	background: #FF7F02 !important;
 	text-align: center !important;
 }
 
@@ -80,10 +86,9 @@ display: none;
 
 .cal_hour {
 	text-align: center;
-/* 	padding-top:10px; */
-/* 	padding-bottom:10px; */
+ 	padding-top:9px; 
+ 	padding-bottom:8px; 
 	border-top: 1px solid gray;
-	background: #EDEDED;
 }
 
 .cal_hour>div {
@@ -104,7 +109,7 @@ display: none;
 		<!-- 반납일 및 대여일 구역 -->
 		
 			<div class="cal_rent_day">
-				<div>대여일</div>
+				<div class="cal_rent_day_title">대여일</div>
 				<div>
 					<span class="cal_rent_day_month">5월</span> <span
 						class="cal_rent_day_date">13일</span>
@@ -113,7 +118,7 @@ display: none;
 			<!-- 			화살표이미지 -->
 			<!-- 			<img alt="▶" src=""> -->
 			<div class="cal_return_day">
-				<div>반납일</div>
+				<div class="cal_return_day_title">반납일</div>
 				<div>
 					<span class="cal_return_day_month">5월</span> <span
 						class="cal_return_day_date">15일</span>
@@ -225,9 +230,6 @@ display: none;
 		//기본 설정 날짜 지정
 		defaultDate:[new Date() , new Date().fp_incr(2)]
 			});
-	
-
-
 	
 	//달력 항목 선택 시 대여일 및 반납일
 	

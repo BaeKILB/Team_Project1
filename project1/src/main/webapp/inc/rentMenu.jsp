@@ -5,7 +5,7 @@
 .rent_menu {
 	padding: 0px;
 	width: 300px;
-	background: #eee;
+	background: #white;
 	text-align: left;
 	margin: 0;
 }
@@ -31,7 +31,7 @@
 	margin: 0;
 	padding:5px;
 	margin-top: 10px;
-	background-color: #FF980D;
+	background-color: #ff7f02;
 	font-weight:bold;
 	color:white;
 	width: 100%;
@@ -39,6 +39,7 @@
 
 .submit_btn:hover {
 	background-color: #FFB04B;
+
 }
 </style>
 
@@ -52,8 +53,8 @@
 		</select>
 	</div>
 
+	<div>반납지점</div>
 	<div class="return_location">
-		<div>반납지점</div>
 		<select class="form-select" name="returnLocation">
 			<option value="서면점">서면점</option>
 			<option value="구포역점">구포역점</option>
