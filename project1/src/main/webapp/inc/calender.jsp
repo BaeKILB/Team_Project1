@@ -17,6 +17,7 @@
 }
 
 .cal_rent {
+	border-radius: 10px 0px 0px 0px;
 	text-align: center;
 	padding-top: 10px; height : 50px; margin : 0;
 	background-color: #0B294B;
